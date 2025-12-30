@@ -1,0 +1,1 @@
+(context.cwd / new_path).resolve() if not new_path.is_absolute() else new_path

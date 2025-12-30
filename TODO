@@ -1,0 +1,29 @@
+TODO Make all commands import and register automatically (use importlib)
+
+# TODOs for CMD_scan
+    >TODO  Refactor `scan` command to support stackable flags instead of mutually exclusive if/elif logic.
+    >TODO  Introduce flag handler mapping for `scan` (flag → function) to simplify extension.
+    >TODO  Change column handling in `scan` from mutable list to a safer structure (e.g., set or controlled builder) to avoid fragility when combining flags.
+    >TODO  Add a canonical/internal flag system so `scan.execute()` only receives normalized flags (e.g., --all, --dir, --file, --time) regardless of Windows/Linux/NEXA syntax.
+    >TODO  Implement a flag normalization/translation layer before command execution.
+    >TODO  Add optional output formats to `scan` (e.g., table, raw, JSON) via a --format flag.
+    >TODO  Use the refactored `scan` command as a template/pattern for future NEXA commands.
+    
+# TODOs for new NEXA commands / features
+    >TODO Implement `whoami` command showing NEXA identity, version, and session info.
+    >TODO Add `pwd` as an alias or separate command to show working directory (even if `here` exists).
+    >TODO Implement `history` command to track entered commands, with optional `-c` to clear and `!<number>` to rerun.
+    >TODO Add `env` command to manage environment variables (set, get, list).
+    >TODO Implement `tree` command for recursive directory visualization.
+    >TODO Add `script` command to run `.nexa` script files with multiple commands.
+    >TODO Implement `plugin` system to dynamically load and list commands.
+    >TODO Add `mode` command to switch shell behavior (e.g., safe, dev, raw).
+    >TODO Implement `essence` command as a resource system for gamified CLI experience.
+    >TODO Add `watch` command to repeatedly execute another command at intervals.
+    >TODO Implement `explain` command to show how a given command is interpreted across platforms.
+    >TODO Add `dry-run` flag support for commands to preview execution without performing actions.
+    >TODO Implement `bridge` command to show equivalents of a command across Linux, Windows, and NEXA.
+    >TODO Create a command normalization/translation layer to unify flags and commands across platforms.
+
+
+
