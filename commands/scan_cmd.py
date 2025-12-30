@@ -25,26 +25,44 @@ class CMD_scan:
                 "accessed" : datetime.fromtimestamp(stats.st_atime),
             })
 
+        def only_files(dirlist):
+            return [info for info in dirlist if not info["is_dir"]]
+            print(dirlist)
+
+        def only_dirs(dirlist):
+            return [info for info in dirlist if info["is_dir"]]
+
         if not args:
             if flags:
-                if "-dir" in flags or "-d" in flags:
-                    dirlist = [info for info in dirlist if info["is_dir"]]
+                time_flag = "-time" in flags or "-t" in flags
+                time_subflags = {"-a", "-c"}
+                used_subflags = time_subflags.intersection(flags)
 
-                elif "-file" in flags or "-fl" in flags:
-                    dirlist = [info for info in dirlist if not info["is_dir"]]
-
-                elif "-time" in flags or "-t" in flags:
-                    columns.remove("size")
-                    if "-a" in flags:
-                        columns[-1] = "accessed"
-                    elif "-c" in flags:
-                        columns[-1] = "created"
-                    else:
+                if used_subflags and not time_flag:
+                    return (
+                        Fore.RED
+                        + " [ERROR] "
+                        + Style.RESET_ALL
+                        + "Flags -a / -c can only be used with -time"
+                    )
+                
+                for flag in flags:
+                    if flag in ("-file", "-fl"):
+                        dirlist = only_files(dirlist)
+                    elif flag in ("-dir", "-d"):
+                        dirlist = only_dirs(dirlist)
+                    elif flag in ("-time", "-t"):
+                        columns.remove("size")
                         columns.append("created")
                         columns.append("accessed")
-
-                else:
-                    return Fore.RED + " [ERROR] " + Style.RESET_ALL + f'Unknow flag "{', '.join(flags)}"'
+                    elif flag in ("-a"):
+                        columns.remove("created")
+                        # columns[-1] = "accessed"
+                    elif flag in ("-c"):
+                        columns.remove("accessed")
+                        # columns[-1] = "created"
+                    else:
+                        return Fore.RED + " [ERROR] " + Style.RESET_ALL + f'Unknow flag "{', '.join(flags)}"'
 
             dirlist.sort(key=lambda info: (not info["is_dir"], info["name"].lower()))
             rows = []
