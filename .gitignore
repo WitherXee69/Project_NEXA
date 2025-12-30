@@ -12,3 +12,7 @@
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/Project_NEXA.iml
 /.idea/vcs.xml
+/commands/__pycache__
+/core/__pycache__
+/frontend/__pycache__
+/.venv
