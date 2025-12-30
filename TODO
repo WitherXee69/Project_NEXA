@@ -1,7 +1,7 @@
 TODO Make all commands import and register automatically (use importlib)
 
 # TODOs for CMD_scan
-    >TODO  Refactor `scan` command to support stackable flags instead of mutually exclusive if/elif logic.
+    !!DONE >TODO  Refactor `scan` command to support stackable flags instead of mutually exclusive if/elif logic.
     >TODO  Introduce flag handler mapping for `scan` (flag → function) to simplify extension.
     >TODO  Change column handling in `scan` from mutable list to a safer structure (e.g., set or controlled builder) to avoid fragility when combining flags.
     >TODO  Add a canonical/internal flag system so `scan.execute()` only receives normalized flags (e.g., --all, --dir, --file, --time) regardless of Windows/Linux/NEXA syntax.
