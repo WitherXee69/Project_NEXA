@@ -7,6 +7,8 @@ from commands.help_cmd import CMD_help
 from commands.here_cmd import CMD_here
 from commands.scan_cmd import CMD_scan
 from commands.warp_cmd import CMD_warp
+from commands.say_cmd import CMD_say
+from commands.execute_cmd import CMD_execute
 
 def nexa():
     # Initialize core components
@@ -18,6 +20,8 @@ def nexa():
     registry.register(CMD_here(), context)
     registry.register(CMD_scan(), context)
     registry.register(CMD_warp(), context)
+    registry.register(CMD_say(), context)
+    registry.register(CMD_execute(), context)
 
     # print(registry.command_registry)
 

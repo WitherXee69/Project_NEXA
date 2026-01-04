@@ -12,8 +12,11 @@ class CMD_scan:
     # Command execution method
     def execute(self, context, flags, args):
         header = f"\nThe file directory of {context.cwd}\n"
-        columns = ["name", "type", "size", "modified"]
+        # columns = []
         dirlist = []
+        columns_set = {"name", "type"}
+        show_dir = None # None, True, False
+        show_time = None # None, 'all', 'accessed', 'created'
         for p in Path(context.cwd).iterdir():
             stats = p.stat()
             dirlist.append({
@@ -27,7 +30,7 @@ class CMD_scan:
 
         def only_files(dirlist):
             return [info for info in dirlist if not info["is_dir"]]
-            print(dirlist)
+            # print(dirlist)
 
         def only_dirs(dirlist):
             return [info for info in dirlist if info["is_dir"]]
@@ -48,21 +51,37 @@ class CMD_scan:
                 
                 for flag in flags:
                     if flag in ("-file", "-fl"):
-                        dirlist = only_files(dirlist)
+                        show_dir = False
                     elif flag in ("-dir", "-d"):
-                        dirlist = only_dirs(dirlist)
+                        show_dir = True
                     elif flag in ("-time", "-t"):
-                        columns.remove("size")
-                        columns.append("created")
-                        columns.append("accessed")
+                        show_time = "all"
                     elif flag in ("-a"):
-                        columns.remove("created")
-                        # columns[-1] = "accessed"
+                        show_time = "accessed"
                     elif flag in ("-c"):
-                        columns.remove("accessed")
-                        # columns[-1] = "created"
+                        show_time = "created"
                     else:
                         return Fore.RED + " [ERROR] " + Style.RESET_ALL + f'Unknow flag "{', '.join(flags)}"'
+
+            if show_time is None:
+                columns_set.add("size")
+                columns_set.add("modified")
+            elif show_time == "all":
+                columns_set.update({"modified", "created", "accessed"})
+            elif show_time == "created":
+                columns_set.add("created")
+            elif show_time == "accessed":
+                columns_set.add("accessed")
+
+            column_order = ["name", "type", "size", "modified", "created", "accessed"]
+            columns = [col for col in column_order if col in columns_set]
+
+            if show_dir is None:
+                pass
+            elif show_dir:
+                dirlist = only_dirs(dirlist)
+            else:
+                dirlist = only_files(dirlist)
 
             dirlist.sort(key=lambda info: (not info["is_dir"], info["name"].lower()))
             rows = []
