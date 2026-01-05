@@ -14,7 +14,7 @@ class CMD_say:
                     # return type(arg)
                     if type(arg) == str:
                         full_line = f"{full_line} " + "".join(arg)
-                return full_line
+                return full_line.lstrip()
             elif args == ".":
                 return "\n"
         return None
