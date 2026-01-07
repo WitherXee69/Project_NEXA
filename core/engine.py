@@ -5,6 +5,8 @@ class Engine:
         self.registry = registry
         self.context = contexts
 
+        contexts.engine = self
+
     def handler(self, input_str):
         # Parse the input string to get command and arguments
         cmd, flags, args = parser(input_str)
