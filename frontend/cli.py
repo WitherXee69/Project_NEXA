@@ -1,4 +1,9 @@
+from frontend.renderer import Renderer
+
 def frontend_cli(engine, context):
+
+    renderer = Renderer()
+
     print("\033c", end="")
     print("""NEXA Shell [Version 0.1a]
 by WitherXee. All rights reserved.\n""")
@@ -20,4 +25,4 @@ by WitherXee. All rights reserved.\n""")
 
         output = engine.handler(command)
         if output:
-            print(output)
+            renderer.render(output)

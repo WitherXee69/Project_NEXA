@@ -1,2 +1,3 @@
-
+@VERBOSE ON
 say 123
+scan
