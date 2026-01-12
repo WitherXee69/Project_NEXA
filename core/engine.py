@@ -8,13 +8,15 @@ class Engine:
         self.registry = registry
         self.context = contexts
 
+        # Engine directives
         self.verbose = False
 
         # Link engine to contexts
         contexts.engine = self
 
-    def handle_directives(self):
-        self.verbose = True
+    def handle_directives(self, directive):
+        if directive[0] == "@VERBOSE" or directive[0] == "@ECHO":
+            self.verbose = True
 
     def run_line(self, input_str):
         response = self.handler(input_str)

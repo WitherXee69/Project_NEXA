@@ -15,9 +15,11 @@ class CMD_execute:
                         for command in commands:
                             # print(command)
                             if command.strip().startswith("@"):
-                                context.engine.handle_directives()
+                                print(command.strip().split())
+                                context.engine.handle_directives(command.strip().split())
                             else:
                                 context.engine.run_line(command)
                         # return f"Executed script: {script}\n"
                     except FileNotFoundError:
                         return f"Script not found: {script}\n"
+        return None
