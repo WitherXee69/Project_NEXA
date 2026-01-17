@@ -15,9 +15,13 @@ by WitherXee. All rights reserved.\n""")
         else:
             locholder = str(context.cwd)
 
-        command = input(f"NEXA [{locholder}] > ")
+        if context.verbose_mode:
+            command = input("")
+        else:
+            command = input(f"NEXA [{locholder}] > ")
 
         if command == "exit":
+            print("Shutting down NEXA...")
             break
 
         if command == "clear" or command == "cls":

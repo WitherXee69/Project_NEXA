@@ -13,12 +13,7 @@ class CMD_execute:
                         with open(script, 'r') as file:
                             commands = file.readlines()
                         for command in commands:
-                            # print(command)
-                            if command.strip().startswith("@"):
-                                print(command.strip().split())
-                                context.engine.handle_directives(command.strip().split())
-                            else:
-                                context.engine.run_line(command)
+                            context.engine.run_line(command)
                         # return f"Executed script: {script}\n"
                     except FileNotFoundError:
                         return f"Script not found: {script}\n"

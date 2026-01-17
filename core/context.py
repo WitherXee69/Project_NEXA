@@ -12,3 +12,5 @@ class Context:
 
         # Available commands
         self.command_list = {}
+
+        self.verbose_mode = False
