@@ -16,3 +16,4 @@
 /core/__pycache__
 /frontend/__pycache__
 /.venv
+core/prompt/__pycache__

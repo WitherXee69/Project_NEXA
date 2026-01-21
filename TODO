@@ -15,7 +15,7 @@ TODO Make all commands import and register automatically (use importlib)
     >TODO Implement `history` command to track entered commands, with optional `-c` to clear and `!<number>` to rerun.
     >TODO Add `env` command to manage environment variables (set, get, list).
     >TODO Implement `tree` command for recursive directory visualization.
-    >TODO Add `script` command to run `.nexa` script files with multiple commands.
+    !!Done >TODO Add `script` command to run `.nexa` script files with multiple commands.
     >TODO Implement `plugin` system to dynamically load and list commands.
     >TODO Add `mode` command to switch shell behavior (e.g., safe, dev, raw).
     >TODO Implement `essence` command as a resource system for gamified CLI experience.

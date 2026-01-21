@@ -3,6 +3,9 @@ def parser(input_str):
 
     flag_count = []
 
+    if not parse:
+        return None, [], []
+
     for item in parse:
         if not item:
             return None, [], []

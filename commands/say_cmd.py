@@ -12,7 +12,7 @@ class CMD_say:
                 # return args
                 for arg in args:
                     # return type(arg)
-                    if type(arg) == str:
+                    if isinstance(arg, str):
                         full_line = f"{full_line} " + "".join(arg)
                 return full_line.lstrip()
             elif args == ".":

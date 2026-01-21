@@ -1,3 +1,4 @@
 colorama
 pyreadline3
 tabulate
+psutil
