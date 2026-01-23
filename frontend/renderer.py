@@ -15,7 +15,15 @@ class Renderer:
                 self.render_tree(value, prefix + extension)
             elif value is not None:
                 extension = "    " if is_last else "│   "
-                print(prefix + extension + "└── " + str(value))
+                lines = str(value).split(',')
+                for j, line in enumerate(lines):
+                    if line.strip():  # Only print non-empty lines
+                        line_connector = "└── " if j == len(lines) - 1 else "├── "
+                        print(prefix + extension + line_connector + line)
+            
+            # Add blank line between interfaces
+            if not is_last:
+                print(prefix + "│")
 
     def render(self, result):
         if result is not None:
