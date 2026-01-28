@@ -1,0 +1,7 @@
+{
+    "name":"NEXA Shell",
+    "version":"0.2.0",
+    "codename":"Riftwalker",
+    "channel":"pre-release",
+    "min_python_ver":"3.10"
+}

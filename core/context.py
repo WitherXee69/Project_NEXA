@@ -19,6 +19,16 @@ class Context:
 
         # Available commands
         self.command_list = {}
+        
+        # Metadata storage
+        self.metadata = {}
+        self.default_metadata = {
+            "name":"NEXA Shell",
+            "version":"Unknown",
+            "codename":"Unknown",
+            "channel":"Unknown",
+            "min_python_ver":"3.10"
+        }
 
         # Directive states
         # Verbose/Echo mode
