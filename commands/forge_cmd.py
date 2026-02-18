@@ -15,7 +15,7 @@ class CMD_forge:
                     if flag in ["-t", "--time"]:
                         modes = "time"
                 for arg in args:
-                    file_path = Path(context.cwd) / arg
+                    file_path = Path(arg)
                     if modes == "time":
                         if file_path.exists():
                             file_path.touch()
