@@ -7,8 +7,8 @@ class PromptProvider:
             locholder = str(context.cwd)
 
         if context.verbose_mode:
-            return f"NEXA [{locholder}] > "
+            return f"\nNEXA [{locholder}] > "
         else:
-            return ""
+            return "\n"
 
         # return f"NEXA [{locholder}] > "

@@ -13,3 +13,4 @@ class CMD_construct:
                 dir_path = Path(arg)
                 dir_path.mkdir(parents=True, exist_ok=True)
                 return "Directory created: " + str(dir_path)
+        return None

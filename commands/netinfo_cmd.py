@@ -4,10 +4,19 @@ class CMD_netinfo:
     name = "netinfo"
     aliases = ["ifconfig", "ipconfig"]
 
-    data = {}
-
     # Command execution method
-    def execute(self, context, flags=None, args=None):
+    def execute(self, context, flags, args=None):
+        data = {}
+        mode = None
+        for flag in flags:
+            if flag in ("-all", "-a"):
+                mode = "all"
+            elif flag in ("-ip4", "-4"):
+                mode = "ip4"
+            elif flag in ("-ip6", "-6"):
+                mode = "ip6"
+            else:
+                mode = None
         for item in context.netinfo.items():
             interface = item[0]
             for addr in item[1]:
@@ -22,9 +31,18 @@ class CMD_netinfo:
                 broadcast = addr.broadcast
                 ptp = addr.ptp
 
+                result = f" Address: {address}"
+
+                if mode == "ip4" and interface_type != "IPv4":
+                    continue
+                elif mode == "ip6" and interface_type != "IPv6":
+                    continue
+                elif mode == "all":
+                    all_result = f"Subnet Mask: {netmask}, Broadcast Address: {broadcast}, Point-to-Point: {ptp}"
+                    result += f", {all_result}"
+
                 key = f"{interface} >>> {interface_type}"
-                result = f" Address: {address}, Subnet Mask: {netmask}, Broadcast Address: {broadcast}, Point-to-Point: {ptp}"
-                self.data[key] = result
-        # print(self.data)
-        return self.data
-        # return context.netinfo
+                data[key] = result
+        
+        # print(data)
+        return data

@@ -45,11 +45,13 @@ class Engine:
         # Built-in clear command
         elif cmd == "clear" or cmd == "cls":
             renderer.clear()
+            return None
 
         # Built-in exit command
         elif cmd == "exit":
             renderer.render(result="Shutting down NEXA...")
             self.context.exit_state = True
+            return None
 
         elif cmd.startswith("@"):
             self.handle_directives(cmd.strip().split(), args)
