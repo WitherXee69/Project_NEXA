@@ -21,3 +21,4 @@ core/prompt/__pycache__
 /build/
 /dist/
 /NEXA.spec
+/.vscode/
