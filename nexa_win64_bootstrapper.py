@@ -1,6 +1,7 @@
 import subprocess
 from pathlib import Path
 import sys
+import nexa
 
 if getattr(sys, 'frozen', False):
     DIR_BASE = Path(sys.executable).parent
@@ -16,7 +17,7 @@ if __name__ == '__main__':
 
     # Run nexa.py
     try:
-        subprocess.run([sys.executable, str(NEXA_DIR)], check=True)
-    except subprocess.CalledProcessError as e:
+        nexa.main()
+    except Exception as e:
         print(f"An error occurred while running nexa.py: {e}")
         sys.exit(1)

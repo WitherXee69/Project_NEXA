@@ -38,14 +38,14 @@ def nexa(registry, context, renderer, prompt):
     while not context.exit_state:
         frontend_cli(engine, renderer, prompt, context)
 
-if __name__ == '__main__':
+def main():
     # Initialize core components
     registry = CommandRegistry()
     context = Context()
     renderer = Renderer()
 
     prompt = PromptProvider()
-    
+
     try:
         with open(fr"data\\meta.json", "r") as metafile:
             metadata = json.load(metafile)
@@ -55,8 +55,11 @@ if __name__ == '__main__':
     try:
         print("\033c", end="")
         print(f"""NEXA Shell [Version {context.metadata["version"]}]
-by WitherXee. All rights reserved.\n""")
-        
+    by WitherXee. All rights reserved.\n""")
+
         nexa(registry, context, renderer, prompt)
     except KeyboardInterrupt:
         print("\nShutting down NEXA...")
+
+if __name__ == '__main__':
+    main()
