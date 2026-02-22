@@ -25,7 +25,7 @@ class CMD_reveal:
                         reveal_mode = "lines"
             try:
                 if Path(args[0]).is_dir():
-                    return f"{args[0]} is not a directory! Please enter a file...\n"
+                    return f"{args[0]} is a directory! Please enter a file...\n"
                 else:
                     with open(args[0], "r") as file:
                         content = file.read()
