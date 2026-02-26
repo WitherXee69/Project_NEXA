@@ -5,6 +5,7 @@ class CMD_construct:
     # Command name
     name = "construct"
     aliases = ["mkdir"]
+    description = "Creates a directory at the specified path. Usage: construct <directory_path>"
 
     # Command execution method
     def execute(self, context, flags, args):

@@ -3,6 +3,7 @@ class CMD_here:
     # Command name
     name = "here"
     aliases = ["pwd", "cd"]
+    description = "Displays the current working directory."
 
     # Command execution method
     def execute(self, context, flags=None, args=None):

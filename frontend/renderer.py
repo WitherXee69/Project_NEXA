@@ -2,26 +2,31 @@ class Renderer:
     def render_tree(self, data, prefix=""):
         if isinstance(data, dict):
             items = list(data.items())
+
+        elif isinstance(data, list):
+            items = [(None, value) for value in data]
+
         else:
-            items = list(enumerate(data))
-        
+            items = []
+
         for i, (key, value) in enumerate(items):
             is_last = i == len(items) - 1
             connector = "└── " if is_last else "├── "
+            extension = "    " if is_last else "│   "
+
+            # If key is None (list item)
+            if key is None:
+                print(prefix + connector + str(value))
+                continue
+
             print(prefix + connector + str(key))
 
             if isinstance(value, (dict, list)):
-                extension = "    " if is_last else "│   "
                 self.render_tree(value, prefix + extension)
             elif value is not None:
-                extension = "    " if is_last else "│   "
-                lines = str(value).split(',')
-                for j, line in enumerate(lines):
-                    if line.strip():  # Only print non-empty lines
-                        line_connector = "└── " if j == len(lines) - 1 else "├── "
-                        print(prefix + extension + line_connector + line)
-            
-            # Add blank line between interfaces
+                print(prefix + extension + "└── " + str(value))
+
+            #Add a blank line after each key-value pair for better readability
             if not is_last:
                 print(prefix + "│")
 

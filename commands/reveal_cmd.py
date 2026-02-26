@@ -10,6 +10,7 @@ class CMD_reveal:
     # Command name
     name = "reveal"
     aliases = ["cat"]
+    description = "Reveals the content of a file"
 
     metadata = {}
 

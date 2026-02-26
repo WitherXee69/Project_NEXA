@@ -1,16 +1,17 @@
+import shlex
+
 def parser(input_str):
-    parse = input_str.strip().split()
+    try:
+        tokens = shlex.split(input_str)
+    except ValueError as e:
+        return None, [], []
 
-    flag_count = []
-
-    for item in parse:
-        if not item:
-            return None, [], []
-        elif item.startswith("-"):
-            flag_count.append(parse.index(item))
-    if len(flag_count) > 0:
-        return parse[0], parse[flag_count[0]:(len(flag_count) + 1)], parse[(len(flag_count) + 1):]
-    return parse[0], None, parse[1:]
+    command = tokens[0]
+    if len(tokens) > 1:
+        tail_tokens = tokens[1:]
+        return command, tail_tokens
+    else:
+        return command, []
 
 if __name__ == '__main__':
     inputs = input("Enter: ")

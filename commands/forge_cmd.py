@@ -5,6 +5,7 @@ class CMD_forge:
     # Command name
     name = "forge"
     aliases = ["touch"]
+    description = "Creates a new file or updates the timestamp of an existing file. Usage: forge [options] <file_path>\nOptions:\n  -t, --time    Update the timestamp of the file without modifying its content."
 
     # Command execution method
     def execute(self, context, flags, args):

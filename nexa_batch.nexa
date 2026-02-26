@@ -1,3 +1,10 @@
 @VERBOSE
 say 123
 exit
+
+if direct match exists:
+    return it
+else:
+    for each command:
+        if user_input in command.aliases:
+            return that command

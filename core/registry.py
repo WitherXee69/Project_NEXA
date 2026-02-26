@@ -5,6 +5,7 @@ class CommandRegistry:
     def register(self, command, context):
         # Register both command name and aliases
         context.command_list[command.name] = command
+        context.lookup_command[command.name] = command
         if hasattr(command, 'aliases'):
             for alias in getattr(command, "aliases", []):
                 context.command_list[alias] = command

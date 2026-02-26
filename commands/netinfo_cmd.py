@@ -3,6 +3,8 @@ class CMD_netinfo:
     # Command name
     name = "netinfo"
     aliases = ["ifconfig", "ipconfig"]
+    description = "Displays network interface information."
+    schema = None
 
     # Command execution method
     def execute(self, context, flags, args=None):

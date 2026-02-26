@@ -7,7 +7,8 @@ class CMD_scan:
     # This is the scan command class
     # Command name
     name = "scan"
-    aliases = ["ls", "list"]
+    aliases = ["ls", "dir"]
+    description = "Lists files and directories in the current working directory."
 
     # Command execution method
     def execute(self, context, flags, args):

@@ -2,7 +2,6 @@ from pathlib import Path
 import psutil
 
 class Context:
-
     def __init__(self):
         # Engine instance
         self.engine = None
@@ -17,8 +16,10 @@ class Context:
 
         self.netinfo = psutil.net_if_addrs()
 
-        # Available commands
+        # Available commands and their aliases
         self.command_list = {}
+        # Available commands for lookup (name)
+        self.lookup_command = {}
         
         # Metadata storage
         self.metadata = {}

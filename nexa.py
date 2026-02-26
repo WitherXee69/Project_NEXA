@@ -55,7 +55,7 @@ def main():
     try:
         print("\033c", end="")
         print(f"""NEXA Shell [Version {context.metadata["version"]}]
-    by WitherXee. All rights reserved.\n""")
+by WitherXee. All rights reserved.\n""")
 
         nexa(registry, context, renderer, prompt)
     except KeyboardInterrupt:

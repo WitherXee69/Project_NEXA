@@ -5,6 +5,10 @@ class CMD_whoami:
     # Command name
     name = "whoami"
     aliases = []
+    description = "Displays information about the current NEXA Shell session and environment."
+    schema = {
+        "-f": "bool",
+        "--full": "bool"}
 
     # Command execution method
     def execute(self, context, flags, args=None):
@@ -27,8 +31,8 @@ class CMD_whoami:
                                             Machine >> {platform.machine()}
                                             
                                     """
-        if flags:
-            for flag in flags:
-                if flag in ["-f", "--full"]:
-                    return data_full + "\n"
-        return data_normal + "\n"
+
+        for key, value in flags.items():
+            if key in ("-f", "--full") and value:
+                return data_full
+        return data_normal

@@ -3,6 +3,7 @@ class CMD_execute:
     # Command name
     name = "execute"
     aliases = ["exec", "run", "script"]
+    description = "Executes a script file containing commands."
 
     # Command execution method
     def execute(self, context, flags, args):

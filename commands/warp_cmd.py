@@ -7,6 +7,7 @@ class CMD_warp:
     # Command name
     name = "warp"
     aliases = ["cd","chdir"]
+    description = "Changes the current working directory to the specified location"
 
     # Command execution method
     def execute(self, context, flags, args):
