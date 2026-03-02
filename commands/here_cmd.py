@@ -4,9 +4,8 @@ class CMD_here:
     name = "here"
     aliases = ["pwd", "cd"]
     description = "Displays the current working directory."
+    schema = None
 
     # Command execution method
     def execute(self, context, flags=None, args=None):
-        if flags is None and args is None:
-            return f"{str(context.cwd)}"
-        return None
+        return f"{str(context.cwd)}"

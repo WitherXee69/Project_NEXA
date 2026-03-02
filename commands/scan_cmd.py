@@ -9,6 +9,11 @@ class CMD_scan:
     name = "scan"
     aliases = ["ls", "dir"]
     description = "Lists files and directories in the current working directory."
+    schema = {"-fl": "bool", "--file": "bool",
+        "-d": "bool", "--dir": "bool",
+        "-t": "bool", "--time": "bool",
+        "-a": "bool",
+        "-c": "bool"}
 
     # Command execution method
     def execute(self, context, flags, args):
@@ -50,19 +55,17 @@ class CMD_scan:
                         + "Flags -a / -c can only be used with -time"
                     )
                 
-                for flag in flags:
-                    if flag in ("-file", "-fl"):
+                for key, value in flags.items():
+                    if key in ("--file", "-fl") and value:
                         show_dir = False
-                    elif flag in ("-dir", "-d"):
+                    elif key in ("--dir", "-d") and value:
                         show_dir = True
-                    elif flag in ("-time", "-t"):
+                    elif key in ("--time", "-t") and value:
                         show_time = "all"
-                    elif flag in ("-a"):
+                    elif key in ("-a") and value:
                         show_time = "accessed"
-                    elif flag in ("-c"):
+                    elif key in ("-c") and value:
                         show_time = "created"
-                    else:
-                        return Fore.RED + " [ERROR] " + Style.RESET_ALL + f'Unknow flag "{', '.join(flags)}"'
 
             if show_time is None:
                 columns_set.add("size")

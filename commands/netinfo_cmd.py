@@ -4,18 +4,23 @@ class CMD_netinfo:
     name = "netinfo"
     aliases = ["ifconfig", "ipconfig"]
     description = "Displays network interface information."
-    schema = None
+    schema = {"--all": "bool",
+              "-a": "bool",
+              "--ip4": "bool",
+              "-4": "bool",
+              "--ip6": "bool",
+              "-6": "bool"}
 
     # Command execution method
     def execute(self, context, flags, args=None):
         data = {}
         mode = None
-        for flag in flags:
-            if flag in ("-all", "-a"):
+        for key, value in flags.items():
+            if key in ("-all", "-a") and value:
                 mode = "all"
-            elif flag in ("-ip4", "-4"):
+            elif key in ("-ip4", "-4") and value:
                 mode = "ip4"
-            elif flag in ("-ip6", "-6"):
+            elif key in ("-ip6", "-6") and value:
                 mode = "ip6"
             else:
                 mode = None

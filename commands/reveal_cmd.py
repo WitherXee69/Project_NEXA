@@ -1,7 +1,7 @@
 from pathlib import Path
 from datetime import datetime
 
-from frontend.renderer import Renderer
+from ui.renderer import Renderer
 
 renderer = Renderer()
 
@@ -11,6 +11,8 @@ class CMD_reveal:
     name = "reveal"
     aliases = ["cat"]
     description = "Reveals the content of a file"
+    schema = {"-m": "bool", "--meta": "bool",
+        "-ln": "bool", "--lines": "bool"}
 
     metadata = {}
 
@@ -19,10 +21,10 @@ class CMD_reveal:
         reveal_mode = "normal"
         if args:
             if flags:
-                for flag in flags:
-                    if flag in ["-m", "--meta"]:
+                for key, value in flags.items():
+                    if key in ("-m", "--meta") and value:
                         reveal_mode = "meta"
-                    elif flag in ["-ln", "--lines"]:
+                    elif key in ("-ln", "--lines") and value:
                         reveal_mode = "lines"
             try:
                 if Path(args[0]).is_dir():

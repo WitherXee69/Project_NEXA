@@ -6,8 +6,8 @@ from core.context import Context
 
 from core.prompt.provider import PromptProvider
 
-from frontend.cli import frontend_cli
-from frontend.renderer import Renderer
+from ui.cli import frontend_cli
+from ui.renderer import Renderer
 
 from commands.help_cmd import CMD_help
 from commands.here_cmd import CMD_here
@@ -58,7 +58,7 @@ def main():
 by WitherXee. All rights reserved.\n""")
 
         nexa(registry, context, renderer, prompt)
-    except KeyboardInterrupt:
+    except (KeyboardInterrupt, EOFError):
         print("\nShutting down NEXA...")
 
 if __name__ == '__main__':

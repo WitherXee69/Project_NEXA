@@ -4,11 +4,11 @@ class CMD_help:
     name = "help"
     aliases = ["h", "?"]
     description = "Provides help information for available commands."
+    schema = None
 
     help_result_dict = {}
     # Command execution method
     def execute(self, context, flags=None, args=None):
-        global help_result
         for key, value in context.lookup_command.items():
             if value.aliases:
                 self.help_result_dict[key] = {

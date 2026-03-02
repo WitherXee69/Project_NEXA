@@ -22,3 +22,5 @@ core/prompt/__pycache__
 /dist/
 /NEXA.spec
 /.vscode/
+/core/parser/__pycache__
+/ui/__pycache__

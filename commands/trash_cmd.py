@@ -6,6 +6,7 @@ class CMD_trash:
     name = "trash"
     aliases = ["rm", "del"]
     description = "Deletes specified files or directories."
+    schema = None  # No specific flags or arguments schema for this command(for now)
 
     # Command execution method
     def execute(self, context, flags, args):

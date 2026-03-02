@@ -21,7 +21,7 @@ class CMD_warp:
                 new_location = (context.cwd / new_location).resolve() if not new_location.is_absolute() else new_location
 
                 if not new_location.exists():
-                    return Fore.RED + " [ERROR] " + Style.RESET_ALL + f"We couldn't find the location: {new_location}"
+                    return Fore.RED + " [ERROR] " + Style.RESET_ALL + f"NEXA couldn't find the location: {new_location}"
                 if not new_location.is_dir():
                     return Fore.RED + " [ERROR] " + Style.RESET_ALL + "The given location is not a directory!"
 

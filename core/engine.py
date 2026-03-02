@@ -1,5 +1,5 @@
 from core.parser.parser import parser
-from frontend.renderer import Renderer
+from ui.renderer import Renderer
 from core.parser.schema_helper import Schema_Helper
 from core.error_handler import *
 
