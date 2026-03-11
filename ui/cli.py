@@ -1,7 +1,7 @@
-def frontend_cli(engine, renderer, prompt, context):
+def frontend_cli(engine, renderer, prompts, context, completer, history):
 
-    prompt_str = prompt.get_prompt(context)
-    command = input(prompt_str)
+    prompt_str = prompts.get_prompt(context)
+    command = history.prompt(f"{prompt_str}", completer=completer)
 
     output = engine.handler(command)
     if output:

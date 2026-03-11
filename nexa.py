@@ -4,7 +4,9 @@ from core.engine import Engine
 from core.registry import CommandRegistry
 from core.context import Context
 
+from core.prompt.completer import NEXACompleter
 from core.prompt.provider import PromptProvider
+from core.prompt.history_handler import history_handler
 
 from ui.cli import frontend_cli
 from ui.renderer import Renderer
@@ -33,10 +35,13 @@ def nexa(registry, context, renderer, prompt):
 
     # print(registry.command_registry)
 
+    completer = NEXACompleter(context)
+    history = history_handler()
+
     # Start the frontend CLI
     engine = Engine(registry, context)
     while not context.exit_state:
-        frontend_cli(engine, renderer, prompt, context)
+        frontend_cli(engine, renderer, prompt, context, completer, history)
 
 def main():
     # Initialize core components
