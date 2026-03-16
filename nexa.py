@@ -1,4 +1,7 @@
 import json
+from prompt_toolkit import PromptSession
+from prompt_toolkit.history import InMemoryHistory
+from prompt_toolkit.shortcuts import CompleteStyle
 
 from core.engine import Engine
 from core.registry import CommandRegistry
@@ -6,7 +9,6 @@ from core.context import Context
 
 from core.prompt.completer import NEXACompleter
 from core.prompt.provider import PromptProvider
-from core.prompt.history_handler import history_handler
 
 from ui.cli import frontend_cli
 from ui.renderer import Renderer
@@ -20,6 +22,7 @@ from commands.execute_cmd import CMD_execute
 from commands.netinfo_cmd import CMD_netinfo
 from commands.whoami_cmd import CMD_whoami
 from commands.reveal_cmd import CMD_reveal
+
 
 def nexa(registry, context, renderer, prompt):
     # Register commands (this would typically be more dynamic)
@@ -36,12 +39,14 @@ def nexa(registry, context, renderer, prompt):
     # print(registry.command_registry)
 
     completer = NEXACompleter(context)
-    history = history_handler()
+    session = PromptSession(history=InMemoryHistory(), 
+                            complete_while_typing=False, 
+                            complete_style=CompleteStyle.READLINE_LIKE)
 
     # Start the frontend CLI
     engine = Engine(registry, context)
     while not context.exit_state:
-        frontend_cli(engine, renderer, prompt, context, completer, history)
+        frontend_cli(engine, renderer, prompt, context, completer, session)
 
 def main():
     # Initialize core components

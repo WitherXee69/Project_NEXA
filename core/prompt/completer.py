@@ -1,4 +1,5 @@
-from prompt_toolkit.completion import Completion, Completer
+from prompt_toolkit.completion import Completion, Completer, PathCompleter
+
 
 class NEXACompleter(Completer):
     def __init__(self, context):
@@ -10,7 +11,6 @@ class NEXACompleter(Completer):
 
         # Get the list of available commands from the context
         available_commands = self.context.lookup_command.keys()
-        available_aliases = [alias for cmd in self.context.lookup_command.values() for alias in cmd.aliases]
 
         if not words:
             for cmd in available_commands:
@@ -18,10 +18,17 @@ class NEXACompleter(Completer):
             return
         
         # Get the current command being typed
-        current_command = words[0]
+        current_input = words[0]
 
         if len(words) == 1 and not text_before_cursor.endswith(" "):
             # Suggest command names
             for cmd in available_commands:
-                if cmd.lower().startswith(current_command.lower()):
-                    yield Completion(cmd, start_position=-len(current_command), display=f"{cmd}, {available_aliases}")
+                if cmd.lower().startswith(current_input.lower()):
+                    yield Completion(cmd, start_position=-len(current_input), display=cmd)
+        elif len(words) > 1 and not text_before_cursor.startswith("-"):
+            # Suggest file paths for arguments
+            path = words[-1]
+
+            path_completer = PathCompleter(get_paths=lambda: [path])
+            for completion in path_completer.get_completions(document, complete_event):
+                yield completion
