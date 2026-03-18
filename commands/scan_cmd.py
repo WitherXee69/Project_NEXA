@@ -14,6 +14,7 @@ class CMD_scan:
         "-t": "bool", "--time": "bool",
         "-a": "bool",
         "-c": "bool"}
+    need_paths = True
 
     # Command execution method
     def execute(self, context, flags, args):

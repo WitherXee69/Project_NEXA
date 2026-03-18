@@ -13,6 +13,7 @@ class CMD_reveal:
     description = "Reveals the content of a file"
     schema = {"-m": "bool", "--meta": "bool",
         "-ln": "bool", "--lines": "bool"}
+    need_paths = True
 
     metadata = {}
 
@@ -30,10 +31,10 @@ class CMD_reveal:
                 if Path(args[0]).is_dir():
                     return f"{args[0]} is a directory! Please enter a file...\n"
                 else:
-                    with open(args[0], "r") as file:
+                    with open(Path(context.cwd/args[0]), "r") as file:
                         content = file.read()
             except FileNotFoundError:
-                return f"File not found: {args[0]}\n"
+                return f"File not found: {Path(args[0])}\n"
             
             if reveal_mode == "normal":
                 return f"\nFull reveal of {args[0]}:\n\n{content}\n"

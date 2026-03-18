@@ -25,7 +25,7 @@ class Schema_Helper:
                     raise DuplicateFlagError(item)
                     # return None, [], f"Duplicate flag: {item}"
 
-                elif (item.startswith("-")) and item in schema:
+                elif item.startswith("-") and item in schema:
                     if schema[item] == "bool":
                         parsed_schema[item] = True
                         parse_index += 1
@@ -36,6 +36,9 @@ class Schema_Helper:
                         else:
                             raise MissingValueError(item)
                             # return None, [], f"No value found for {item}"
+                elif not item.startswith("-"):
+                    parsed_args.append(item)
+                    parse_index += 1
 
                 elif (item.startswith("-")) and item not in schema:
                     raise InvalidFlagError(item)
@@ -47,9 +50,5 @@ class Schema_Helper:
                 return None, [], e.message
             except DuplicateFlagError as e:
                 return None, [], e.message
-
-            else:
-                parsed_args.append(item)
-                parse_index += 1
 
         return parsed_schema, parsed_args, None

@@ -8,6 +8,7 @@ class CMD_forge:
     description = "Creates a new file or updates the timestamp of an existing file. Usage: forge [options] <file_path>\nOptions:\n  -t, --time    Update the timestamp of the file without modifying its content."
     schema = {"-t": "bool", 
               "--time": "bool"}
+    need_paths = True
 
     # Command execution method
     def execute(self, context, flags, args):

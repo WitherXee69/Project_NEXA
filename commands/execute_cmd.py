@@ -5,6 +5,7 @@ class CMD_execute:
     aliases = ["exec", "run", "script"]
     description = "Executes a script file containing commands."
     schema = None
+    need_paths = True
 
     # Command execution method
     def execute(self, context, flags, args):

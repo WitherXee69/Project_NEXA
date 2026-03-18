@@ -1,5 +1,5 @@
-from prompt_toolkit.completion import Completion, Completer, PathCompleter
-
+from prompt_toolkit.completion import Completion, Completer
+from pathlib import Path
 
 class NEXACompleter(Completer):
     def __init__(self, context):
@@ -20,15 +20,54 @@ class NEXACompleter(Completer):
         # Get the current command being typed
         current_input = words[0]
 
+        cmd = current_input.lower()
+        command = self.context.lookup_command.get(cmd)
+
         if len(words) == 1 and not text_before_cursor.endswith(" "):
             # Suggest command names
             for cmd in available_commands:
                 if cmd.lower().startswith(current_input.lower()):
                     yield Completion(cmd, start_position=-len(current_input), display=cmd)
-        elif len(words) > 1 and not text_before_cursor.startswith("-"):
-            # Suggest file paths for arguments
-            path = words[-1]
 
-            path_completer = PathCompleter(get_paths=lambda: [path])
-            for completion in path_completer.get_completions(document, complete_event):
-                yield completion
+        elif command and command.need_paths:
+            prefix = "" if text_before_cursor.endswith(" ") else words[-1]
+            start_pos = 0 if prefix == "" else -len(prefix)
+            # Ensure cwd is a Path
+            cwd = Path(self.context.cwd)
+
+            # Resolve directory to search
+            p = Path(prefix)
+
+            # Special case: path ends with '/'
+            if prefix.endswith("/"):
+                dirname = (Path(self.context.cwd) / p).resolve()
+                name_prefix = ""
+                base = p
+            else:
+                dirname = (Path(self.context.cwd) / p.parent).resolve() if prefix else Path(self.context.cwd)
+                name_prefix = p.name if prefix else ""
+                base = p.parent
+
+            try:
+                for entry in dirname.iterdir():
+                    if entry.name.startswith(name_prefix):
+                        name = entry.name
+
+                        # Build correct completion text
+                        if base != Path("."):
+                            complete_path = (base / name).as_posix()
+                        else:
+                            complete_path = name
+
+                        if Path(complete_path).is_dir():
+                            completion = complete_path + "/"
+                        else:
+                            completion = complete_path
+
+                        yield Completion(
+                            completion,
+                            start_position=start_pos,
+                            display=name
+                        )
+            except Exception:
+                pass
