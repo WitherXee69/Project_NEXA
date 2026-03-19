@@ -3,6 +3,8 @@ from ui.renderer import Renderer
 from core.parser.schema_helper import Schema_Helper
 from core.error_handler import *
 
+from pathlib import Path
+
 renderer = Renderer()
 schema_helper = Schema_Helper()
 
@@ -35,6 +37,9 @@ class Engine:
             renderer.render(result=header + response)
 
     def handler(self, input_str):
+        sys_env_path = Path(self.context.env_dir / "sys_define.env")
+        user_env_path = Path(self.context.env_dir / "user_define.env")
+
         # Parse the input string to get command and arguments
         cmd, tail_flags = parser(input_str)
 
@@ -46,6 +51,24 @@ class Engine:
             command = self.registry.get_cmd(cmd, self.context)
             if command:
                 flags, args, error = schema_helper.helper(command, tail_flags)
+                if args[0].startswith("$"):
+                    var_name = args[0][1:]
+                    value = None
+                    if user_env_path.exists():
+                        with open(user_env_path, "r") as user_env_file:
+                            for line in user_env_file:
+                                if line.startswith(f"{var_name}="):
+                                    value = line.strip().split("=", 1)[1]
+                                    break
+                    if value is None and sys_env_path.exists():
+                        with open(sys_env_path, "r") as sys_env_file:
+                            for line in sys_env_file:
+                                if line.startswith(f"{var_name}="):
+                                    value = line.strip().split("=", 1)[1]
+                                    break
+                    if value is not None:
+                        args[0] = value
+
                 if error:
                     return error
                 return command.execute(self.context, flags, args)
@@ -58,6 +81,8 @@ class Engine:
             # Built-in exit command
             elif cmd == "exit":
                 renderer.render(result="Shutting down NEXA...")
+                if sys_env_path.exists():
+                    sys_env_path.unlink()  # Remove the file on exit
                 self.context.exit_state = True
                 return None
 

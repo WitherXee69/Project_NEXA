@@ -5,6 +5,7 @@ class CMD_say:
     aliases = ["echo"]
     description = "Echoes the input text back to the user."
     schema = None # No flags for this command, just arguments
+    need_paths = False
 
     # Command execution method
     def execute(self, context, flags, args):

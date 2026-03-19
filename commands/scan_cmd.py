@@ -24,7 +24,8 @@ class CMD_scan:
         columns_set = {"name", "type"}
         show_dir = None # None, True, False
         show_time = None # None, 'all', 'accessed', 'created'
-        for p in Path(context.cwd).iterdir():
+        path = Path(context.cwd).resolve() if not args else Path(context.cwd / args[0]).resolve()
+        for p in path.iterdir():
             stats = p.stat()
             dirlist.append({
                 "name" : p.name,
@@ -42,7 +43,7 @@ class CMD_scan:
         def only_dirs(dirlist):
             return [info for info in dirlist if info["is_dir"]]
 
-        if not args:
+        if args:
             if flags:
                 time_flag = "-time" in flags or "-t" in flags
                 time_subflags = {"-a", "-c"}

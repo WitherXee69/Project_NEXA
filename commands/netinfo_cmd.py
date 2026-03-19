@@ -10,6 +10,7 @@ class CMD_netinfo:
               "-4": "bool",
               "--ip6": "bool",
               "-6": "bool"}
+    need_paths = False
 
     # Command execution method
     def execute(self, context, flags, args=None):

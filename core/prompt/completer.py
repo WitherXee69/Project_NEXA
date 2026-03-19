@@ -29,6 +29,15 @@ class NEXACompleter(Completer):
                 if cmd.lower().startswith(current_input.lower()):
                     yield Completion(cmd, start_position=-len(current_input), display=cmd)
 
+        elif len(words) > 1 and words[-1].startswith("-"):
+            prefix = words[-1]
+            start_pos = -len(prefix)
+
+            available_flags = command.schema.keys() if command and hasattr(command, "schema") else []
+            for flag in available_flags:
+                if flag.startswith(prefix):
+                    yield Completion(flag, start_position=start_pos, display=flag)
+
         elif command and command.need_paths:
             prefix = "" if text_before_cursor.endswith(" ") else words[-1]
             start_pos = 0 if prefix == "" else -len(prefix)

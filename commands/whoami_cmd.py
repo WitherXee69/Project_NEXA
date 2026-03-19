@@ -9,6 +9,7 @@ class CMD_whoami:
     schema = {
         "-f": "bool",
         "--full": "bool"}
+    need_paths = False
 
     # Command execution method
     def execute(self, context, flags, args=None):

@@ -50,3 +50,10 @@ class NoCommandError(NEXA_Error):
     def __init__(self):
         self.message = "No command provided."
         super().__init__(self.message)
+
+class ImportFilesNotFoundError(NEXA_Error):
+    """Raised when the 'commands' directory is not found."""
+    def __init__(self, directory):
+        self.directory = directory
+        self.message = f"Import directory: '{directory}' not found."
+        super().__init__(self.message)

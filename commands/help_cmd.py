@@ -5,6 +5,7 @@ class CMD_help:
     aliases = ["h", "?"]
     description = "Provides help information for available commands."
     schema = None
+    need_paths = False
 
     help_result_dict = {}
     # Command execution method
