@@ -25,3 +25,5 @@ core/prompt/__pycache__
 /core/parser/__pycache__
 /ui/__pycache__
 .venv_linux
+/changelog_master.txt
+/changelog_dev_unstable.txt
