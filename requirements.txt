@@ -3,3 +3,4 @@ pyreadline3
 tabulate
 psutil
 prompt_toolkit
+python-dotenv

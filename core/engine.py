@@ -37,8 +37,6 @@ class Engine:
             renderer.render(result=header + response)
 
     def handler(self, input_str):
-        sys_env_path = Path(self.context.env_dir / "sys_define.env")
-        user_env_path = Path(self.context.env_dir / "user_define.env")
 
         # Parse the input string to get command and arguments
         cmd, tail_flags = parser(input_str)
@@ -54,14 +52,14 @@ class Engine:
                 if args[0].startswith("$"):
                     var_name = args[0][1:]
                     value = None
-                    if user_env_path.exists():
-                        with open(user_env_path, "r") as user_env_file:
+                    if self.context.user_env_path.exists():
+                        with open(self.context.user_env_path, "r") as user_env_file:
                             for line in user_env_file:
                                 if line.startswith(f"{var_name}="):
                                     value = line.strip().split("=", 1)[1]
                                     break
-                    if value is None and sys_env_path.exists():
-                        with open(sys_env_path, "r") as sys_env_file:
+                    if value is None and self.context.sys_env_path.exists():
+                        with open(self.context.sys_env_path, "r") as sys_env_file:
                             for line in sys_env_file:
                                 if line.startswith(f"{var_name}="):
                                     value = line.strip().split("=", 1)[1]
@@ -81,8 +79,9 @@ class Engine:
             # Built-in exit command
             elif cmd == "exit":
                 renderer.render(result="Shutting down NEXA...")
-                if sys_env_path.exists():
-                    sys_env_path.unlink()  # Remove the file on exit
+                if self.context.sys_env_path.exists() or self.context.user_env_path.exists():
+                    self.context.sys_env_path.unlink()  # Remove the file on exit
+                    self.context.user_env_path.unlink()  # Remove the file on exit
                 self.context.exit_state = True
                 return None
 

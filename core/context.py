@@ -17,6 +17,9 @@ class Context:
         # Environment variables directory (for CMD_set)
         self.env_dir = Path(__file__).parent.parent / "data" / "env"
 
+        self.sys_env_path = self.env_dir / "sys_define.env"
+        self.user_env_path = self.env_dir / "user_define.env"
+
         self.netinfo = psutil.net_if_addrs()
 
         # Available commands and their aliases

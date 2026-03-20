@@ -8,7 +8,7 @@ from prompt_toolkit.shortcuts import CompleteStyle
 from core.engine import Engine
 from core.registry import CommandRegistry
 from core.context import Context
-from core.dynamic_importer import DynamicImporter
+from core.importer.dynamic_importer import DynamicImporter
 
 from core.prompt.completer import NEXACompleter
 from core.prompt.provider import PromptProvider
@@ -47,7 +47,8 @@ def main():
 
     prompt = PromptProvider()
 
-    sys_env_path = Path(context.env_dir / "sys_define.env")
+    sys_env_path = context.sys_env_path
+    user_env_path = context.user_env_path
     if not sys_env_path.exists():
         with open(sys_env_path, "w") as sys_env_file:
             for key, value in os.environ.items():
@@ -66,8 +67,9 @@ by WitherXee. All rights reserved.\n""")
 
         nexa(registry, context, renderer, prompt)
     except (KeyboardInterrupt, EOFError):        
-        if sys_env_path.exists():
+        if sys_env_path.exists() or user_env_path.exists():
             sys_env_path.unlink()  # Remove the file on exit
+            user_env_path.unlink()  # Remove the file on exit
         print("\nShutting down NEXA...")
 
 if __name__ == '__main__':
