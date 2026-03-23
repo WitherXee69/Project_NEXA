@@ -49,7 +49,7 @@ class Engine:
             command = self.registry.get_cmd(cmd, self.context)
             if command:
                 flags, args, error = schema_helper.helper(command, tail_flags)
-                if args[0].startswith("$"):
+                if args and args[0].startswith("$"):
                     var_name = args[0][1:]
                     value = None
                     if self.context.user_env_path.exists():
