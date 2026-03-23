@@ -1,5 +1,4 @@
 from dotenv import set_key
-from pathlib import Path
 
 class CMD_set:
     # This is set command class
