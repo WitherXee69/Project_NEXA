@@ -39,22 +39,7 @@ class CMD_set:
                 if "-v" in flags or "--verbose" in flags:
                     verbose_mode = True
 
-                if "-sys" in flags or "--system" in flags and "-show" not in flags and "--show" not in flags:
-                    if verbose_mode:
-                        set_key(str(context.sys_env_path), var_name, value)
-                        return f"System environment variable '{var_name}' set to '{value}'.\nNote: Environment variables are currently session-based."
-                    else:
-                        set_key(str(context.sys_env_path), var_name, value)
-                        return "Note: Environment variables are currently session-based."
-                        #return "Done."
-                else:
-                    if verbose_mode:
-                        set_key(str(context.user_env_path), var_name, value)
-                        return f"User environment variable '{var_name}' set to '{value}'.\nNote: Environment variables are currently session-based."
-                    else:
-                        set_key(str(context.user_env_path), var_name, value)
-                        return "Note: Environment variables are currently session-based."
-                        #return "Done."
+                
 
             else:
                 set_key(str(context.user_env_path), var_name, value)

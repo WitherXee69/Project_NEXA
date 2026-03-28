@@ -27,5 +27,7 @@ core/prompt/__pycache__
 .venv_linux
 /changelog_master.txt
 /changelog_dev_unstable.txt
+/core/importer/__pycache__
+/data/env
 /NEXA_build_batch.bat
 /data/env/sys_define.env
