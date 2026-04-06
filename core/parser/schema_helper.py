@@ -25,7 +25,7 @@ class Schema_Helper:
                     raise DuplicateFlagError(item)
                     # return None, [], f"Duplicate flag: {item}"
 
-                elif item.startswith("-") and item in schema:
+                elif (item.startswith("-") or item.startswith("/")) and item in schema:
                     if schema[item] == "bool":
                         parsed_schema[item] = True
                         parse_index += 1

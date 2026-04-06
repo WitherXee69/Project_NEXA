@@ -1,6 +1,7 @@
 import json
 import os
 from pathlib import Path
+import prompt_toolkit
 from prompt_toolkit import PromptSession
 from prompt_toolkit.history import InMemoryHistory
 from prompt_toolkit.shortcuts import CompleteStyle
@@ -66,9 +67,10 @@ def main():
 by WitherXee. All rights reserved.\n""")
 
         nexa(registry, context, renderer, prompt)
-    except (KeyboardInterrupt, EOFError):        
-        if sys_env_path.exists() or user_env_path.exists():
+    except (KeyboardInterrupt, EOFError):
+        if sys_env_path.exists():
             sys_env_path.unlink()  # Remove the file on exit
+        if user_env_path.exists():
             user_env_path.unlink()  # Remove the file on exit
         print("\nShutting down NEXA...")
 
