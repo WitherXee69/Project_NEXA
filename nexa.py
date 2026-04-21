@@ -40,6 +40,7 @@ def nexa(registry, context, renderer, prompt):
     while not context.exit_state:
         frontend_cli(engine, renderer, prompt, context, completer, session)
 
+
 def main():
     # Initialize core components
     registry = CommandRegistry()
@@ -47,6 +48,8 @@ def main():
     renderer = Renderer()
 
     prompt = PromptProvider()
+
+    meta_path = Path("data/meta.json")
 
     sys_env_path = context.sys_env_path
     user_env_path = context.user_env_path
@@ -56,7 +59,8 @@ def main():
                 sys_env_file.write(f"{key}={value}\n")
 
     try:
-        with open(fr"data\\meta.json", "r") as metafile:
+
+        with open(meta_path, "r") as metafile:
             metadata = json.load(metafile)
             context.metadata = metadata
     except FileNotFoundError:
