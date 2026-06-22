@@ -39,6 +39,7 @@ def nexa(registry, context, renderer, prompt):
     while not context.exit_state:
         frontend_cli(engine, renderer, prompt, context, completer, session)
 
+
 def main():
     # Initialize core components
     registry = CommandRegistry()
@@ -46,6 +47,8 @@ def main():
     renderer = Renderer()
 
     prompt = PromptProvider()
+
+    meta_path = Path("data/meta.json")
 
     sys_env_path = context.sys_env_path
     user_env_path = context.user_env_path
@@ -55,7 +58,8 @@ def main():
                 sys_env_file.write(f"{key}={value}\n")
 
     try:
-        with open(fr"data\\meta.json", "r") as metafile:
+
+        with open(meta_path, "r") as metafile:
             metadata = json.load(metafile)
             context.metadata = metadata
     except FileNotFoundError:
@@ -66,9 +70,10 @@ def main():
 by WitherXee. All rights reserved.\n""")
 
         nexa(registry, context, renderer, prompt)
-    except (KeyboardInterrupt, EOFError):        
-        if sys_env_path.exists() or user_env_path.exists():
+    except (KeyboardInterrupt, EOFError):
+        if sys_env_path.exists():
             sys_env_path.unlink()  # Remove the file on exit
+        if user_env_path.exists():
             user_env_path.unlink()  # Remove the file on exit
         print("\nShutting down NEXA...")
 

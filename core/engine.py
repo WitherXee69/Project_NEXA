@@ -79,10 +79,14 @@ class Engine:
             # Built-in exit command
             elif cmd == "exit":
                 renderer.render(result="Shutting down NEXA...")
-                if self.context.sys_env_path.exists() or self.context.user_env_path.exists():
+
+                if self.context.sys_env_path.exists():
                     self.context.sys_env_path.unlink()  # Remove the file on exit
+                if self.context.user_env_path.exists():
                     self.context.user_env_path.unlink()  # Remove the file on exit
+
                 self.context.exit_state = True
+                
                 return None
 
             elif cmd.startswith("@"):

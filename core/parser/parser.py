@@ -4,10 +4,10 @@ def parser(input_str):
     try:
         tokens = shlex.split(input_str, posix=False)
     except ValueError as e:
-        return None, [], []
+        return None, []
 
     if not tokens:
-        return None, [], []
+        return None, []
     else:
         command = tokens[0]
         if len(tokens) > 1:
