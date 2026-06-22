@@ -32,5 +32,9 @@ core/prompt/__pycache__
 /NEXA_build_batch.bat
 /data/env/sys_define.env
 /rmtest
+<<<<<<< HEAD
 /.idea/NEXA_Shell.iml
 data/env/user_define.env
+=======
+/.idea/NEXA_Shell.iml
+>>>>>>> 374057117ef74f1b307f441d80f6f2c64771a194

@@ -1,6 +1,7 @@
 import json
 import os
 from pathlib import Path
+import prompt_toolkit
 from prompt_toolkit import PromptSession
 from prompt_toolkit.history import InMemoryHistory
 from prompt_toolkit.shortcuts import CompleteStyle
