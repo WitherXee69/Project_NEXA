@@ -39,7 +39,7 @@ class Engine:
     def handler(self, input_str):
 
         # Parse the input string to get command and arguments
-        cmd, tail_flags = parser(input_str)
+        cmd, tail_flags = parser(input_str, self.context)
 
         try:
             if not cmd:

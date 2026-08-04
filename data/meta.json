@@ -3,5 +3,5 @@
     "version":"1.5.0",
     "codename":"NightShade",
     "channel":"release",
-    "min_python_ver":"3.10"
+    "min_python_ver":"3.14"
 }

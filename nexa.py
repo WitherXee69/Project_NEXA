@@ -51,6 +51,10 @@ def main():
 
     meta_path = Path("data/meta.json")
 
+    env_path = context.env_dir
+    if not env_path.exists():
+        env_path.mkdir(parents=True, exist_ok=True)
+
     sys_env_path = context.sys_env_path
     user_env_path = context.user_env_path
     if not sys_env_path.exists():

@@ -1,20 +1,34 @@
-for index, item in enumerate(tail_flags):
-    if item.startswith("-") and item in schema:
-        for key, value in schema.items():
-            if item == key and value == "bool":
-                parsed_schema[key] = True
-            elif item == key and value == "value":
-                if (index + 1) < len(tail_flags):
-                    if not tail_flags[index + 1].startswith("-"):
-                        parsed_schema[key] = tail_flags[index + 1]
-                    else:
-                        parsed_schema[key] = tail_flags[index + 2]
-                else:
-                    print("No value found")
-    elif item.startswith("-") and item not in schema:
-        # For testing
-        print("Unknown flag:", item)
-    elif not item.startswith("-"):
-        pass
-# For testing
-print(parsed_schema)
+import shlex
+
+cmd = input("enter command: ")
+
+PIPELINE_SEPERATOR = ["|"]
+
+
+pipeline_commands = {
+    "data":None,
+    "stages":[],
+    "current_stage":0
+}
+
+if any(sep in cmd for sep in PIPELINE_SEPERATOR):
+    # Handle pipeline commands
+
+    pipeline_tokens = shlex.shlex(cmd, posix=True)
+    pipeline_tokens.whitespace_split = True
+    pipeline_tokens.whitespace = PIPELINE_SEPERATOR
+
+    pipeline_commands["data"] = list(pipeline_tokens)
+    pipeline_commands["stages"] = len(pipeline_commands["data"])
+
+    print(pipeline_commands["data"])
+
+else:
+    tokens = shlex.split(cmd, posix=False)
+    if not tokens:
+        print("No command entered.")
+    else:
+        command = tokens[0]
+        tail_tokens = tokens[1:] if len(tokens) > 1 else []
+        print(f"Command: {command}, Tail Tokens: {tail_tokens}")
+        

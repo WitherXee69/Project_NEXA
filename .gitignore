@@ -38,3 +38,4 @@ data/env/user_define.env
 =======
 /.idea/NEXA_Shell.iml
 >>>>>>> 374057117ef74f1b307f441d80f6f2c64771a194
+tests/tests.py

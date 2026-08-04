@@ -40,3 +40,12 @@ class Context:
         # Directive states
         # Verbose/Echo mode
         self.verbose_mode = True
+
+        # Pipeline mode
+        self.pipeline_separator = ["&&", "||", "|", ">>", ">"]
+
+        self.pipeline_commands = {
+            "data":None,
+            "stages":[],
+            "current_stage":0
+        }
